@@ -12,7 +12,7 @@ jobs:
 
     defaults:
         run:
-            working-directory: ./worksheet2/w2-react-app
+            working-directory: ./worksheet2/my_nest-app
 
     strategy:
       matrix:
