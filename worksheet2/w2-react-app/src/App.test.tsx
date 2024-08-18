@@ -1,4 +1,5 @@
 import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react"
 import ReactDOM from "react-dom";
 import App from "./App";
 
@@ -13,3 +14,36 @@ describe('Addition', () => {
     expect(2+2).toBe(4);
   });
 });
+
+describe("App Component", () => {
+  //Passing Test Example
+  it("increments the count when the button is cclicked", () => {
+    render(<App />);
+
+    const button = screen.getByText("Increment count");
+    const countText = screen.getByText(/Count:/);
+
+    //Initially, the count should be 0
+    expect(countText).toHaveTextContent("Count: 0");
+
+    //Simulate a button click
+    fireEvent.click(button);
+
+    //After clicking, the count should be 1
+    expect(countText).toHaveTextContent("Count: 1");
+  });
+
+  //Failing Test Component
+  it("fails when the count does not match the expected value", () => {
+    render(<App />);
+
+    const button = screen.getByText("Increment count");
+    const countText = screen.getByText(/Count:/);
+
+    // Simulate a button click
+    fireEvent.click(button);
+
+    // This expectation will fail because the actual count is 1, not 2
+    expect(countText).toHaveTextContent("Count: 2");
+  });
+})
