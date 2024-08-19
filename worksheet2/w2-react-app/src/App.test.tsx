@@ -32,18 +32,4 @@ describe("App Component", () => {
     //After clicking, the count should be 1
     expect(countText).toHaveTextContent("Count: 1");
   });
-
-  //Failing Test Component
-  it("fails when the count does not match the expected value", () => {
-    render(<App />);
-
-    const button = screen.getByText("Increment count");
-    const countText = screen.getByText(/Count:/);
-
-    // Simulate a button click
-    fireEvent.click(button);
-
-    // This expectation will fail because the actual count is 1, not 2
-    expect(countText).toHaveTextContent("Count: 2");
-  });
 })
