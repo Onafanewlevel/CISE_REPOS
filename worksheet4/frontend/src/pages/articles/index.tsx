@@ -50,7 +50,6 @@ export const getStaticProps: GetStaticProps<ArticlesProps> = async (_) => {
     evidence: article.evidence,
   }));
 
-
   return {
     props: {
       articles,
@@ -60,5 +59,3 @@ export const getStaticProps: GetStaticProps<ArticlesProps> = async (_) => {
 
 export default Articles;
 
-
-  
