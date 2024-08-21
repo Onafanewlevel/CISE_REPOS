@@ -1,6 +1,6 @@
-import { GetStaticProps, NextPage } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import SortableTable from "../../components/table/SortableTable";
-import data from "../../utils/dummydata";
+import { fetchArticles } from "../../utils/api";
 
 interface ArticlesInterface {
   id: string;
@@ -17,7 +17,7 @@ type ArticlesProps = {
   articles: ArticlesInterface[];
 };
 
-const Articles: NextPage<ArticlesProps> = ({ articles }) => {
+const Articles: NextPage<ArticlesProps> = async ({ articles }) => {
   const headers: { key: keyof ArticlesInterface; label: string }[] = [
     { key: "title", label: "Title" },
     { key: "authors", label: "Authors" },
@@ -28,6 +28,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     { key: "evidence", label: "Evidence" },
   ];
 
+  const data = await fetchArticles();
+  console.log(data);
   return (
     <div className="container">
       <h1>Articles Index Page</h1>
@@ -37,25 +39,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<ArticlesProps> = async (_) => {
-  // Map the data to ensure all articles have consistent property names
-  const articles = data.map((article) => ({
-    id: article.id ?? article._id,
-    title: article.title,
-    authors: article.authors,
-    source: article.source,
-    pubyear: article.pubyear,
-    doi: article.doi,
-    claim: article.claim,
-    evidence: article.evidence,
-  }));
-
-  return {
-    props: {
-      articles,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async () => {
+  const articles = await fetchArticles();
+  return { props: { articles } };
 };
-
 export default Articles;
-

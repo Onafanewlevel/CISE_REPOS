@@ -11,7 +11,7 @@ interface Article {
 // Fetch all articles
 export const fetchArticles = async (): Promise<Article[]> => {
   try {
-    const response = await axiosInstance.get<Article[]>("/articles");
+    const response = await axiosInstance.get<Article[]>("api/article");
     return response.data;
   } catch (error) {
     console.error("Error fetching articles:", error);

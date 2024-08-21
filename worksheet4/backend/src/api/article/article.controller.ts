@@ -23,6 +23,7 @@ export class ArticleController {
   @Get()
   async findAll() {
     try {
+      console.log('find all');
       return this.articleService.findAll();
     } catch {
       throw new HttpException(
@@ -52,7 +53,7 @@ export class ArticleController {
     }
   }
 
-  @Post('/')
+  @Post('/articles')
   async create(@Body() createArticleDto: CreateArticleDto) {
     try {
       return this.articleService.create(createArticleDto);
